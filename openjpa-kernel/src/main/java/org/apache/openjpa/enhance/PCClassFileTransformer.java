@@ -55,7 +55,6 @@ public class PCClassFileTransformer
     private final ClassLoader _tmpLoader;
     private final Log _log;
     private final Set _names;
-    private boolean _transforming = false;
 
     /**
      * Constructor.
@@ -107,6 +106,9 @@ public class PCClassFileTransformer
             _log.info(_loc.get("runtime-enhance-pcclasses"));
     }
 
+    // this must be called under a proper locking, this is guaranteed by either
+    // a correct concurrent classloader with transformation support OR
+    // a mono-threaded access guarantee (build, deploy time enhancements).
     @Override
     public byte[] transform(ClassLoader loader, String className,
         Class redef, ProtectionDomain domain, byte[] bytes)
@@ -118,15 +120,41 @@ public class PCClassFileTransformer
         if (className == null) {
             return null;
         }
-        // prevent re-entrant calls, which can occur if the enhancing
-        // loader is used to also load OpenJPA libraries; this is to prevent
-        // recursive enhancement attempts for internal openjpa libraries
-        if (_transforming)
-            return null;
-
-        _transforming = true;
 
         return transform0(className, redef, bytes);
+    }
+
+    // very simplified flavor of
+    // @apache/tomee >
+    // container/openejb-core >
+    // org/apache/openejb/util/classloader/URLClassLoaderFirst.java#L207
+    private boolean isExcluded(final String className) {
+        if (    // api
+                className.startsWith("javax/") ||
+                className.startsWith("jakarta/") ||
+                // openjpa dependencies
+                className.startsWith("serp/") ||
+                // jvm
+                className.startsWith("java/") ||
+                className.startsWith("sun/") ||
+                className.startsWith("jdk/")) {
+            return true;
+        }
+        // it is faster to use substring when multiple tests are needed
+        if (className.startsWith("org/apache/")) {
+            final String sub = className.substring("org/apache/".length());
+            if (sub.startsWith("openjpa/") ||
+                    sub.startsWith("commons/")) {
+                return true;
+            }
+        }
+        if (className.startsWith("com/")) {
+            final String sub = className.substring("com/".length());
+            if (sub.startsWith("oracle/") || sub.startsWith("sun/")) { // jvm
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -151,7 +179,7 @@ public class PCClassFileTransformer
             try {
                 PCEnhancer enhancer = new PCEnhancer(_repos.getConfiguration(),
                         new Project().loadClass(new ByteArrayInputStream(bytes),
-                                _tmpLoader), _repos);
+                                _tmpLoader), _repos, _tmpLoader);
                 enhancer.setAddDefaultConstructor(_flags.addDefaultConstructor);
                 enhancer.setEnforcePropertyRestrictions
                         (_flags.enforcePropertyRestrictions);
@@ -172,7 +200,6 @@ public class PCClassFileTransformer
                 throw (IllegalClassFormatException) t;
             throw new GeneralException(t);
         } finally {
-            _transforming = false;
             if (returnBytes != null && _log.isTraceEnabled())
                 _log.trace(_loc.get("runtime-enhance-complete", className,
                     bytes.length, returnBytes.length));
@@ -182,41 +209,44 @@ public class PCClassFileTransformer
     /**
      * Return whether the given class needs enhancement.
      */
-    private Boolean needsEnhance(String clsName, Class redef, byte[] bytes) {
-        if (redef != null) {
-            Class[] intfs = redef.getInterfaces();
+    private Boolean needsEnhance(String clsName, Class<?> redef, byte[] bytes) {
+        final boolean excluded = isExcluded(clsName);
+
+        if (!excluded && redef != null) { // if excluded we just check it is not in names
+            Class<?>[] intfs = redef.getInterfaces();
             for (int i = 0; i < intfs.length; i++)
-                if (PersistenceCapable.class.getName().
-                    equals(intfs[i].getName()))
-                    return Boolean.valueOf(!isEnhanced(bytes));
+                if (PersistenceCapable.class.getName()
+                    .equals(intfs[i].getName()))
+                    return false;
             return null;
         }
 
         if (_names != null) {
             if (_names.contains(clsName.replace('/', '.')))
-                return Boolean.valueOf(!isEnhanced(bytes));
+                return !isEnhanced(bytes);
+            if (excluded) {
+                return false;
+            }
             return null;
         }
 
-        if (clsName.startsWith("java/") || clsName.startsWith("javax/"))
-            return null;
-        if (isEnhanced(bytes))
-            return Boolean.FALSE;
+        if (excluded || isEnhanced(bytes))
+            return false;
 
         try {
-            Class c = Class.forName(clsName.replace('/', '.'), false,
+            Class<?> c = Class.forName(clsName.replace('/', '.'), false,
                 _tmpLoader);
             if (_repos.getMetaData(c, null, false) != null)
-                return Boolean.TRUE;
+                return true;
             return null;
         } catch (ClassNotFoundException cnfe) {
             // cannot load the class: this might mean that it is a proxy
             // or otherwise inaccessible class which can't be an entity
-            return Boolean.FALSE;
+            return false;
         } catch (LinkageError cce) {
             // this can happen if we are loading classes that this
             // class depends on; these will never be enhanced anyway
-            return Boolean.FALSE;
+            return false;
         } catch (RuntimeException re) {
             throw re;
         } catch (Throwable t) {
