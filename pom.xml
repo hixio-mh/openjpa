@@ -82,7 +82,7 @@
         <mssql.connector.version>7.2.1</mssql.connector.version>
 
         <!-- other common versions -->
-        <kubernetes-client.version>4.7.0</kubernetes-client.version>
+        <kubernetes-client.version>4.13.0</kubernetes-client.version>
         <slf4j.version>1.7.23</slf4j.version>
         <!-- Compile Java source/target class level -->
         <compile.class.source>${java.class.version}</compile.class.source>
@@ -91,7 +91,7 @@
         <compile.testclass.target>${java.testclass.version}</compile.testclass.target>
 
         <maven.javadoc.version>3.0.1</maven.javadoc.version>
-        <javadoc.additionalparam />
+        <javadoc.additionalparam/>
         <maven.surefire.version>3.0.0-M4</maven.surefire.version>
 
         <xbean.version>4.17</xbean.version>
@@ -390,7 +390,7 @@
                        <configuration>
                            <argLine>${surefire.jvm.args}</argLine>
                            <includes>
-                               <include />
+                               <include/>
                            </includes>
                        </configuration>
                    </plugin>
@@ -425,8 +425,8 @@
             <properties>
                 <connection.driver.name>org.apache.derby.jdbc.EmbeddedDriver</connection.driver.name>
                 <connection.url>jdbc:derby:target/database/openjpa-derby-database;create=true</connection.url>
-                <connection.username />
-                <connection.password />
+                <connection.username/>
+                <connection.password/>
                 <!-- Tests are much faster without shutting derby down at the end of each test. -->
                 <jdbc.DBDictionary>ShutdownOnClose=false</jdbc.DBDictionary>
                 <!-- TCK specific properties -->
@@ -446,8 +446,8 @@
                 <h2.version>1.4.196</h2.version>
                 <connection.driver.name>org.h2.Driver</connection.driver.name>
                 <connection.url>jdbc:h2:./target/database/openjpa-h2-database</connection.url>
-                <connection.username />
-                <connection.password />
+                <connection.username/>
+                <connection.password/>
                 <!-- TCK specific properties -->
                 <tck.db.name>h2mem</tck.db.name>
             </properties>
@@ -484,8 +484,8 @@
             <properties>
                 <connection.driver.name>org.apache.derby.jdbc.EmbeddedDriver</connection.driver.name>
                 <connection.url>jdbc:derby:memory:openjpa-derby-inmem-database;create=true</connection.url>
-                <connection.username />
-                <connection.password />
+                <connection.username/>
+                <connection.password/>
                 <!-- Tests are much faster without shutting derby down at the end of each test. -->
                 <jdbc.DBDictionary>ShutdownOnClose=false</jdbc.DBDictionary>
             </properties>
@@ -529,7 +529,7 @@
                 <connection.url>${openjpa.derbynet.url}</connection.url>
                 <connection.username>${openjpa.derbynet.username}</connection.username>
                 <connection.password>${openjpa.derbynet.password}</connection.password>
-                <jdbc.DBDictionary />
+                <jdbc.DBDictionary/>
             </properties>
         </profile>
 
@@ -554,8 +554,8 @@
                 <!--<connection.url>jdbc:hsqldb:target/database/openjpa-hsqldb-database;create=true</connection.url>-->
                 <connection.url>jdbc:hsqldb:mem:openjpa22-hsqldb-database</connection.url>
                 <connection.username>sa</connection.username>
-                <connection.password />
-                <jdbc.DBDictionary />
+                <connection.password/>
+                <jdbc.DBDictionary/>
             </properties>
         </profile>
 
@@ -581,7 +581,7 @@
                 <connection.url>${openjpa.mysql.url}</connection.url>
                 <connection.username>${openjpa.mysql.username}</connection.username>
                 <connection.password>${openjpa.mysql.password}</connection.password>
-                <jdbc.DBDictionary />
+                <jdbc.DBDictionary/>
                 <!-- DBCP overrides for MySQL testing -->
                 <dbcp.maxIdle>5</dbcp.maxIdle>
                 <dbcp.minIdle>0</dbcp.minIdle>
@@ -618,7 +618,7 @@
                 <connection.url>${openjpa.mysql.url}</connection.url>
                 <connection.username>${openjpa.mysql.username}</connection.username>
                 <connection.password>${openjpa.mysql.password}</connection.password>
-                <jdbc.DBDictionary />
+                <jdbc.DBDictionary/>
 
                 <!-- DBCP overrides for MySQL testing -->
                 <dbcp.maxIdle>5</dbcp.maxIdle>
@@ -676,7 +676,7 @@
                 <connection.url>${openjpa.mariadb.url}</connection.url>
                 <connection.username>${openjpa.mariadb.username}</connection.username>
                 <connection.password>${openjpa.mariadb.password}</connection.password>
-                <jdbc.DBDictionary />
+                <jdbc.DBDictionary/>
                 <!-- DBCP overrides for MariaDB testing -->
                 <dbcp.maxIdle>5</dbcp.maxIdle>
                 <dbcp.minIdle>0</dbcp.minIdle>
@@ -713,7 +713,7 @@
                 <connection.url>${openjpa.mariadb.url}</connection.url>
                 <connection.username>${openjpa.mariadb.username}</connection.username>
                 <connection.password>${openjpa.mariadb.password}</connection.password>
-                <jdbc.DBDictionary />
+                <jdbc.DBDictionary/>
 
                 <!-- DBCP overrides for mariadb testing -->
                 <dbcp.maxIdle>5</dbcp.maxIdle>
@@ -775,7 +775,7 @@
                 <connection.url>${openjpa.postgresql.url}</connection.url>
                 <connection.username>${openjpa.postgresql.username}</connection.username>
                 <connection.password>${openjpa.postgresql.password}</connection.password>
-                <jdbc.DBDictionary />
+                <jdbc.DBDictionary/>
                 <!-- DBCP overrides -->
                 <dbcp.maxIdle>5</dbcp.maxIdle>
                 <dbcp.minIdle>0</dbcp.minIdle>
@@ -813,7 +813,7 @@
                 <connection.url>${openjpa.postgresql.url}</connection.url>
                 <connection.username>${openjpa.postgresql.username}</connection.username>
                 <connection.password>${openjpa.postgresql.password}</connection.password>
-                <jdbc.DBDictionary />
+                <jdbc.DBDictionary/>
 
                 <!-- DBCP overrides -->
                 <dbcp.maxIdle>20</dbcp.maxIdle>
@@ -905,7 +905,7 @@
                 <connection.url>${openjpa.mssql.url}</connection.url>
                 <connection.username>${openjpa.mssql.username}</connection.username>
                 <connection.password>${openjpa.mssql.password}</connection.password>
-                <jdbc.DBDictionary />
+                <jdbc.DBDictionary/>
             </properties>
             <repositories>
                 <repository>
@@ -954,7 +954,7 @@
                 <connection.url>${openjpa.mssql.url}</connection.url>
                 <connection.username>${openjpa.mssql.username}</connection.username>
                 <connection.password>${openjpa.mssql.password}</connection.password>
-                <jdbc.DBDictionary />
+                <jdbc.DBDictionary/>
 
                 <!-- DBCP overrides -->
                 <dbcp.maxIdle>20</dbcp.maxIdle>
@@ -1015,7 +1015,7 @@
                 <connection.url>${openjpa.sqlserver.url}</connection.url>
                 <connection.username>${openjpa.sqlserver.username}</connection.username>
                 <connection.password>${openjpa.sqlserver.password}</connection.password>
-                <jdbc.DBDictionary />
+                <jdbc.DBDictionary/>
             </properties>
         </profile>
 
@@ -1042,7 +1042,7 @@
                 <connection.url>${openjpa.sybase.url}</connection.url>
                 <connection.username>${openjpa.sybase.username}</connection.username>
                 <connection.password>${openjpa.sybase.password}</connection.password>
-                <jdbc.DBDictionary />
+                <jdbc.DBDictionary/>
             </properties>
         </profile>
 
@@ -1063,7 +1063,7 @@
                 <connection.url>${openjpa.sybase.url}</connection.url>
                 <connection.username>${openjpa.sybase.username}</connection.username>
                 <connection.password>${openjpa.sybase.password}</connection.password>
-                <jdbc.DBDictionary />
+                <jdbc.DBDictionary/>
             </properties>
         </profile>
 
@@ -1090,7 +1090,7 @@
                 <connection.url>${openjpa.ingres.url}</connection.url>
                 <connection.username>${openjpa.ingres.username}</connection.username>
                 <connection.password>${openjpa.ingres.password}</connection.password>
-                <jdbc.DBDictionary />
+                <jdbc.DBDictionary/>
             </properties>
         </profile>
 
@@ -1125,7 +1125,7 @@
                 <connection.url>${openjpa.custom.url}</connection.url>
                 <connection.username>${openjpa.custom.username}</connection.username>
                 <connection.password>${openjpa.custom.password}</connection.password>
-                <jdbc.DBDictionary />
+                <jdbc.DBDictionary/>
             </properties>
         </profile>
 
@@ -1173,7 +1173,7 @@
                 <connection.url>${openjpa.custom.url}</connection.url>
                 <connection.username>${openjpa.custom.username}</connection.username>
                 <connection.password>${openjpa.custom.password}</connection.password>
-                <jdbc.DBDictionary />
+                <jdbc.DBDictionary/>
             </properties>
         </profile>
 
@@ -1246,7 +1246,7 @@
                 <connection.url>${openjpa.db2.url}</connection.url>
                 <connection.username>${openjpa.db2.username}</connection.username>
                 <connection.password>${openjpa.db2.password}</connection.password>
-                <jdbc.DBDictionary />
+                <jdbc.DBDictionary/>
             </properties>
             <repositories>
                 <repository>
@@ -1379,7 +1379,7 @@
                 <connection.url>${openjpa.ids.url}</connection.url>
                 <connection.username>${openjpa.ids.username}</connection.username>
                 <connection.password>${openjpa.ids.password}</connection.password>
-                <jdbc.DBDictionary />
+                <jdbc.DBDictionary/>
             </properties>
             <repositories>
                 <repository>
@@ -1448,7 +1448,7 @@
                 <connection.url>${openjpa.ids.url}</connection.url>
                 <connection.username>${openjpa.ids.username}</connection.username>
                 <connection.password>${openjpa.ids.password}</connection.password>
-                <jdbc.DBDictionary />
+                <jdbc.DBDictionary/>
             </properties>
             <repositories>
                 <repository>
@@ -1513,7 +1513,7 @@
                 <connection.url>${openjpa.oracle.url}</connection.url>
                 <connection.username>${openjpa.oracle.username}</connection.username>
                 <connection.password>${openjpa.oracle.password}</connection.password>
-                <jdbc.DBDictionary />
+                <jdbc.DBDictionary/>
 
                 <!-- DBCP overrides -->
                 <dbcp.maxIdle>20</dbcp.maxIdle>
@@ -1621,7 +1621,7 @@
                 <connection.url>${openjpa.oracle.url}</connection.url>
                 <connection.username>${openjpa.oracle.username}</connection.username>
                 <connection.password>${openjpa.oracle.password}</connection.password>
-                <jdbc.DBDictionary />
+                <jdbc.DBDictionary/>
             </properties>
             <repositories>
                 <repository>
@@ -1666,7 +1666,7 @@
                 <connection.url>${openjpa.soliddb.url}</connection.url>
                 <connection.username>${openjpa.soliddb.username}</connection.username>
                 <connection.password>${openjpa.soliddb.password}</connection.password>
-                <jdbc.DBDictionary />
+                <jdbc.DBDictionary/>
             </properties>
             <repositories>
                 <repository>
@@ -2158,7 +2158,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -2173,7 +2173,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -2188,7 +2188,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -2203,7 +2203,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -2218,7 +2218,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <execute />
+                                        <execute/>
                                     </action>
                                 </pluginExecution>
 
@@ -2233,7 +2233,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -2248,7 +2248,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -2263,7 +2263,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -2278,7 +2278,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>
@@ -2328,26 +2328,26 @@
                             <checkstyleRules>
                                 <module name="Checker">
                                     <module name="NewlineAtEndOfFile">
-                                        <property name="lineSeparator" value="lf" />
+                                        <property name="lineSeparator" value="lf"/>
                                     </module>
                                     <module name="LineLength">
-                                        <property name="max" value="150" />
+                                        <property name="max" value="150"/>
                                     </module>
                                     <module name="TreeWalker">
                                         <module name="RegexpSinglelineJava">
-                                            <property name="format" value="System\.(out|err)\.print(ln)?\(" />
-                                            <property name="ignoreComments" value="true" />
+                                            <property name="format" value="System\.(out|err)\.print(ln)?\("/>
+                                            <property name="ignoreComments" value="true"/>
                                         </module>
                                         <module name="SuppressionCommentFilter">
-                                            <property name="offCommentFormat" value="// START - ALLOW PRINT STATEMENTS" />
-                                            <property name="onCommentFormat" value="// STOP - ALLOW PRINT STATEMENTS" />
+                                            <property name="offCommentFormat" value="// START - ALLOW PRINT STATEMENTS"/>
+                                            <property name="onCommentFormat" value="// STOP - ALLOW PRINT STATEMENTS"/>
                                         </module>
                                     </module>
 
                                     <!-- File location is specified in root pom.xml via ${checkstyle.suppressions.location} -->
                                     <module name="SuppressionFilter">
-                                        <property name="file" value="${checkstyle.suppressions.location}" />
-                                        <property name="optional" value="true" />
+                                        <property name="file" value="${checkstyle.suppressions.location}"/>
+                                        <property name="optional" value="true"/>
                                     </module>
                                 </module>
                             </checkstyleRules>
