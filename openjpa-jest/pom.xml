@@ -56,7 +56,7 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
-            <version>2.4</version>
+            <version>2.5</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -89,11 +89,11 @@
                         <configuration>
                             <target>
                                 <ant antfile="src/main/ant/enhancer.xml" target="enhance" inheritRefs="true">
-                                    <property name="maven.test.skip" value="${maven.test.skip}" />
-                                    <property name="test" value="${test}" />
-                                    <property name="outdir" value="${project.build.outputDirectory}" />
-                                    <property name="project.build.testOutputDirectory" value="${project.build.testOutputDirectory}" />
-                                    <property name="openjpa.Log" value="${openjpa.Log}" />
+                                    <property name="maven.test.skip" value="${maven.test.skip}"/>
+                                    <property name="test" value="${test}"/>
+                                    <property name="outdir" value="${project.build.outputDirectory}"/>
+                                    <property name="project.build.testOutputDirectory" value="${project.build.testOutputDirectory}"/>
+                                    <property name="openjpa.Log" value="${openjpa.Log}"/>
                                 </ant>
                             </target>
                         </configuration>
